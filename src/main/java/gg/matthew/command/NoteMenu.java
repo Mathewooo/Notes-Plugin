@@ -1,10 +1,11 @@
 package gg.matthew.command;
 
 import gg.matthew.menu.menus.NotesMenu;
-import me.kodysimpson.simpapi.command.SubCommand;
-import me.kodysimpson.simpapi.exceptions.MenuManagerException;
-import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException;
-import me.kodysimpson.simpapi.menu.MenuManager;
+import gg.matthew.util.NotesStorage;
+import gg.ree.api.command.SubCommand;
+import gg.ree.api.exceptions.MenuManagerException;
+import gg.ree.api.exceptions.MenuManagerNotSetupException;
+import gg.ree.api.menu.MenuManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -33,6 +34,8 @@ public class NoteMenu extends SubCommand {
 
     @Override
     public void perform(CommandSender sender, String[] args) {
+        Player player = (Player) sender;
+        NotesStorage.setSortedNotesForPlayer(player.getUniqueId());
         try {
             MenuManager.openMenu(NotesMenu.class, (Player) sender);
 

@@ -3,10 +3,9 @@ package gg.matthew;
 import gg.matthew.command.CreateNote;
 import gg.matthew.command.NoteMenu;
 import gg.matthew.util.NotesStorage;
-import me.kodysimpson.simpapi.command.CommandList;
-import me.kodysimpson.simpapi.command.CommandManager;
-import me.kodysimpson.simpapi.command.SubCommand;
-import me.kodysimpson.simpapi.menu.MenuManager;
+import gg.ree.api.command.CommandManager;
+import gg.ree.api.command.SubCommand;
+import gg.ree.api.menu.MenuManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -23,7 +22,7 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         plugin = this;
         try {
-            CommandManager.createCoreCommand(this, "notes", "Vytvor a uchovaj si poznámky pre tvoje plány na serveri", "/notes", (CommandList) (sender, subCommandList) -> {
+            CommandManager.createCoreCommand(this, "notes", "Vytvor a uchovaj si poznámky pre tvoje plány na serveri", "/notes", (sender, subCommandList) -> {
                 sender.sendMessage("------------");
                 for (SubCommand subCommand : subCommandList) {
                     sender.sendMessage(subCommand.getSyntax() + " - " + subCommand.getDescription());

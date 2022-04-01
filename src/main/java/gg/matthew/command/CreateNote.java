@@ -1,7 +1,8 @@
 package gg.matthew.command;
 
 import gg.matthew.util.NotesStorage;
-import me.kodysimpson.simpapi.command.SubCommand;
+import gg.ree.api.command.SubCommand;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -37,6 +38,7 @@ public class CreateNote extends SubCommand {
             }
             stringBuilder.append(args[args.length - 1]);
             NotesStorage.createNote((Player) sender, stringBuilder.toString());
+            sender.sendMessage(ChatColor.GREEN + "Poznámka uložená!");
         }
     }
 

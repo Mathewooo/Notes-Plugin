@@ -2,11 +2,11 @@ package gg.matthew.menu.menus;
 
 import gg.matthew.models.Note;
 import gg.matthew.util.NotesStorage;
-import me.kodysimpson.simpapi.exceptions.MenuManagerException;
-import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException;
-import me.kodysimpson.simpapi.menu.Menu;
-import me.kodysimpson.simpapi.menu.MenuManager;
-import me.kodysimpson.simpapi.menu.PlayerMenuUtility;
+import gg.ree.api.exceptions.MenuManagerException;
+import gg.ree.api.exceptions.MenuManagerNotSetupException;
+import gg.ree.api.menu.Menu;
+import gg.ree.api.menu.MenuManager;
+import gg.ree.api.menu.PlayerMenuUtility;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -43,12 +43,14 @@ public class NotesList extends Menu {
 
     @Override
     public void setMenuItems() {
-        List<Note> notes = NotesStorage.findAllNotes();
-        for (Note note : notes) {
-            ItemStack itemStack = makeItem(Material.PAPER, "Poznámka #" + note.getId(), note.getMessage(), "Vytvorené hráčom " + note.getPlayerName());
-            inventory.addItem(itemStack);
+        List<Note> notes = NotesStorage.sortedNotesForPlayer.get(playerMenuUtility.getOwner().getUniqueId());
+        if (!(notes.isEmpty())) {
+            for (Note note : notes) {
+                ItemStack itemStack = makeItem(Material.PAPER, note.getMessage(), "Poznámka #" + note.getId(), "Vytvorené hráčom " + note.getPlayerName());
+                inventory.addItem(itemStack);
+            }
+            ItemStack close = makeItem(Material.BARRIER, "Zatvoriť");
+            inventory.setItem(49, close);
         }
-        ItemStack close = makeItem(Material.BARRIER, "Zatvoriť");
-        inventory.setItem(49, close);
     }
 }

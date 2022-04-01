@@ -3,18 +3,18 @@ package gg.matthew.util;
 import com.google.gson.Gson;
 import gg.matthew.Main;
 import gg.matthew.models.Note;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class NotesStorage {
+    public static HashMap<UUID, List<Note>> sortedNotesForPlayer = new HashMap<>();
     private static ArrayList<Note> notes = new ArrayList<>();
 
     public static void createNote(Player player, String message) {
-        Note note = new Note(player.getDisplayName(), message);
+        Note note = new Note(player.getDisplayName(), message, generateId());
         notes.add(note);
         try {
             saveNotes();
@@ -37,10 +37,6 @@ public class NotesStorage {
         }
     }
 
-    public static List<Note> findAllNotes() {
-        return notes;
-    }
-
     public static void saveNotes() throws IOException {
         Gson gson = new Gson();
         File file = new File(Main.getPlugin().getDataFolder().getAbsolutePath() + "/notes.json");
@@ -50,7 +46,7 @@ public class NotesStorage {
         gson.toJson(notes, writter);
         writter.flush();
         writter.close();
-        System.out.println("Notes saved!");
+        Main.getPlugin().getLogger().info("Notes saved!");
     }
 
     public static void loadNotes() throws IOException {
@@ -60,7 +56,21 @@ public class NotesStorage {
             Reader reader = new FileReader(file);
             Note[] note = gson.fromJson(reader, Note[].class);
             notes = new ArrayList<>(Arrays.asList(note));
-            System.out.println("Notes Loaded!");
+            Main.getPlugin().getLogger().info("Notes loaded!");
         }
+    }
+
+    private static String generateId() {
+        return (notes.size() == 0 ? String.valueOf(1) : String.valueOf((Integer.parseInt(notes.get(notes.size() - 1).getId()) + 1)));
+    }
+
+    public static void setSortedNotesForPlayer(UUID uuid) {
+        ArrayList<Note> playerNotes = new ArrayList<>();
+        for (Note note : notes) {
+            if (note.getPlayerName().equalsIgnoreCase(Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName())) {
+                playerNotes.add(note);
+            }
+        }
+        sortedNotesForPlayer.put(uuid, playerNotes);
     }
 }

@@ -1,11 +1,11 @@
 package gg.matthew.menu.menus;
 
 import gg.matthew.util.NotesStorage;
-import me.kodysimpson.simpapi.exceptions.MenuManagerException;
-import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException;
-import me.kodysimpson.simpapi.menu.Menu;
-import me.kodysimpson.simpapi.menu.MenuManager;
-import me.kodysimpson.simpapi.menu.PlayerMenuUtility;
+import gg.ree.api.exceptions.MenuManagerException;
+import gg.ree.api.exceptions.MenuManagerNotSetupException;
+import gg.ree.api.menu.Menu;
+import gg.ree.api.menu.MenuManager;
+import gg.ree.api.menu.PlayerMenuUtility;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;

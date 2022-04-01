@@ -2,7 +2,7 @@ package gg.matthew.menu;
 
 import org.bukkit.entity.Player;
 
-public class PlayerMenuUtility extends me.kodysimpson.simpapi.menu.PlayerMenuUtility {
+public class PlayerMenuUtility extends gg.ree.api.menu.PlayerMenuUtility {
     private static String noteToDelete;
 
     public PlayerMenuUtility(Player player) {

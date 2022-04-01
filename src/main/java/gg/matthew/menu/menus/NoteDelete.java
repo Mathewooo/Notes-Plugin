@@ -3,11 +3,11 @@ package gg.matthew.menu.menus;
 import gg.matthew.Main;
 import gg.matthew.models.Note;
 import gg.matthew.util.NotesStorage;
-import me.kodysimpson.simpapi.exceptions.MenuManagerException;
-import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException;
-import me.kodysimpson.simpapi.menu.Menu;
-import me.kodysimpson.simpapi.menu.MenuManager;
-import me.kodysimpson.simpapi.menu.PlayerMenuUtility;
+import gg.ree.api.exceptions.MenuManagerException;
+import gg.ree.api.exceptions.MenuManagerNotSetupException;
+import gg.ree.api.menu.Menu;
+import gg.ree.api.menu.MenuManager;
+import gg.ree.api.menu.PlayerMenuUtility;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -26,7 +26,7 @@ public class NoteDelete extends Menu {
 
     @Override
     public String getMenuName() {
-        return "Vyber si poznámku, ktorú chceš vymazať";
+        return "Vymazanie poznámok";
     }
 
     @Override
@@ -53,16 +53,18 @@ public class NoteDelete extends Menu {
 
     @Override
     public void setMenuItems() {
-        List<Note> notes = NotesStorage.findAllNotes();
-        for (Note note : notes) {
-            ItemStack itemStack = makeItem(Material.PAPER, "Poznámka #" + note.getId(), note.getMessage(), "Vytvorené hráčom " + note.getPlayerName());
-            ItemMeta itemMeta = itemStack.getItemMeta();
-            assert itemMeta != null;
-            itemMeta.getPersistentDataContainer().set(new NamespacedKey(Main.getPlugin(), "noteID"), PersistentDataType.STRING, note.getId());
-            itemStack.setItemMeta(itemMeta);
-            inventory.addItem(itemStack);
+        List<Note> notes = NotesStorage.sortedNotesForPlayer.get(playerMenuUtility.getOwner().getUniqueId());
+        if (!(notes.isEmpty())) {
+            for (Note note : notes) {
+                ItemStack itemStack = makeItem(Material.PAPER, note.getMessage(), "Poznámka #" + note.getId(), "Vytvorené hráčom " + note.getPlayerName());
+                ItemMeta itemMeta = itemStack.getItemMeta();
+                assert itemMeta != null;
+                itemMeta.getPersistentDataContainer().set(new NamespacedKey(Main.getPlugin(), "noteID"), PersistentDataType.STRING, note.getId());
+                itemStack.setItemMeta(itemMeta);
+                inventory.addItem(itemStack);
+            }
+            ItemStack close = makeItem(Material.BARRIER, "Zatvoriť");
+            inventory.setItem(49, close);
         }
-        ItemStack close = makeItem(Material.BARRIER, "Zatvoriť");
-        inventory.setItem(49, close);
     }
 }

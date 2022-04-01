@@ -1,16 +1,14 @@
 package gg.matthew.models;
 
-import java.util.UUID;
-
 public class Note {
+    private final String playerName;
+    private final String message;
     private final String id;
-    private String playerName;
-    private String message;
 
-    public Note(String playerName, String message) {
+    public Note(String playerName, String message, String id) {
         this.playerName = playerName;
         this.message = message;
-        this.id = UUID.randomUUID().toString();
+        this.id = id;
     }
 
     public String getId() {
@@ -21,16 +19,8 @@ public class Note {
         return playerName;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
 }
