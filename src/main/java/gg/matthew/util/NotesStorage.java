@@ -23,15 +23,6 @@ public class NotesStorage {
         }
     }
 
-    public static Note findNote(String id) {
-        for (Note note : notes) {
-            if (note.getId().equalsIgnoreCase(id)) {
-                return note;
-            }
-        }
-        return null;
-    }
-
     public static void deleteNote(String id) {
         for (Note note : notes) {
             if (note.getId().equalsIgnoreCase(id)) {
@@ -44,22 +35,6 @@ public class NotesStorage {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-    }
-
-    public static Note updateNote(String id, Note newNote) {
-        for (Note note : notes) {
-            if (note.getId().equalsIgnoreCase(id)) {
-                note.setPlayerName(newNote.getPlayerName());
-                note.setMessage(newNote.getMessage());
-                try {
-                    saveNotes();
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-                return note;
-            }
-        }
-        return null;
     }
 
     public static List<Note> findAllNotes() {
