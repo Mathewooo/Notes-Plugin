@@ -45,7 +45,7 @@ public class NoteDelete extends Menu {
             MenuManager.openMenu(NotesMenu.class, playerMenuUtility.getOwner());
         } else if (Objects.requireNonNull(event.getCurrentItem()).getType() == Material.PAPER) {
             PersistentDataContainer container = Objects.requireNonNull(event.getCurrentItem().getItemMeta()).getPersistentDataContainer();
-            String noteID = container.get(new NamespacedKey(Main.getPlugin(), "noteID"), PersistentDataType.STRING);
+            Integer noteID = container.get(new NamespacedKey(Main.getPlugin(), "noteID"), PersistentDataType.INTEGER);
             gg.matthew.menu.PlayerMenuUtility.setNoteToDelete(noteID);
             MenuManager.openMenu(ConfirmDelete.class, playerMenuUtility.getOwner());
         }
@@ -56,10 +56,10 @@ public class NoteDelete extends Menu {
         List<Note> notes = NotesStorage.sortedNotesForPlayer.get(playerMenuUtility.getOwner().getUniqueId());
         if (!(notes.isEmpty())) {
             for (Note note : notes) {
-                ItemStack itemStack = makeItem(Material.PAPER, note.getMessage(), "Poznámka #" + note.getId(), "Vytvorené hráčom " + note.getPlayerName());
+                ItemStack itemStack = makeItem(Material.PAPER, note.getMessage(), "Poznámka #" + note.getId(), "Vytvorené hráčom " + note.getPlayerName() + " - " + note.getDate());
                 ItemMeta itemMeta = itemStack.getItemMeta();
                 assert itemMeta != null;
-                itemMeta.getPersistentDataContainer().set(new NamespacedKey(Main.getPlugin(), "noteID"), PersistentDataType.STRING, note.getId());
+                itemMeta.getPersistentDataContainer().set(new NamespacedKey(Main.getPlugin(), "noteID"), PersistentDataType.INTEGER, note.getId());
                 itemStack.setItemMeta(itemMeta);
                 inventory.addItem(itemStack);
             }

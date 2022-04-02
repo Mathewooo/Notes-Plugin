@@ -40,7 +40,7 @@ public class ConfirmDelete extends Menu {
                 MenuManager.openMenu(NoteDelete.class, playerMenuUtility.getOwner());
                 break;
             case GREEN_BANNER:
-                String noteID = gg.matthew.menu.PlayerMenuUtility.getNoteToDelete();
+                Integer noteID = gg.matthew.menu.PlayerMenuUtility.getNoteToDelete();
                 NotesStorage.deleteNote(noteID);
                 playerMenuUtility.getOwner().sendMessage(ChatColor.GREEN + "Poznámka bola vymazaná!");
                 playerMenuUtility.getOwner().closeInventory();

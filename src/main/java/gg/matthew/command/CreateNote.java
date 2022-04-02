@@ -2,10 +2,11 @@ package gg.matthew.command;
 
 import gg.matthew.util.NotesStorage;
 import gg.ree.api.command.SubCommand;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.awt.*;
 import java.util.List;
 
 public class CreateNote extends SubCommand {
@@ -38,7 +39,7 @@ public class CreateNote extends SubCommand {
             }
             stringBuilder.append(args[args.length - 1]);
             NotesStorage.createNote((Player) sender, stringBuilder.toString());
-            sender.sendMessage(ChatColor.GREEN + "Poznámka uložená!");
+            sender.sendMessage(ChatColor.of(new Color(132, 180, 113)) + "Poznámka uložená!");
         }
     }
 

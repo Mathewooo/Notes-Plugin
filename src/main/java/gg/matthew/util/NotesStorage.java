@@ -23,9 +23,9 @@ public class NotesStorage {
         }
     }
 
-    public static void deleteNote(String id) {
+    public static void deleteNote(int id) {
         for (Note note : notes) {
-            if (note.getId().equalsIgnoreCase(id)) {
+            if (note.getId() == id) {
                 notes.remove(note);
                 break;
             }
@@ -60,8 +60,8 @@ public class NotesStorage {
         }
     }
 
-    private static String generateId() {
-        return (notes.size() == 0 ? String.valueOf(1) : String.valueOf((Integer.parseInt(notes.get(notes.size() - 1).getId()) + 1)));
+    private static int generateId() {
+        return (notes.size() == 0 ? 1 : notes.get(notes.size() - 1).getId() + 1);
     }
 
     public static void setSortedNotesForPlayer(UUID uuid) {

@@ -46,7 +46,7 @@ public class NotesList extends Menu {
         List<Note> notes = NotesStorage.sortedNotesForPlayer.get(playerMenuUtility.getOwner().getUniqueId());
         if (!(notes.isEmpty())) {
             for (Note note : notes) {
-                ItemStack itemStack = makeItem(Material.PAPER, note.getMessage(), "Poznámka #" + note.getId(), "Vytvorené hráčom " + note.getPlayerName());
+                ItemStack itemStack = makeItem(Material.PAPER, note.getMessage(), "Poznámka #" + note.getId(), "Vytvorené hráčom " + note.getPlayerName() + " - " + note.getDate());
                 inventory.addItem(itemStack);
             }
             ItemStack close = makeItem(Material.BARRIER, "Zatvoriť");
